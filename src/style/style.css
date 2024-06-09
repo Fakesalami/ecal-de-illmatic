@@ -1,0 +1,1291 @@
+@charset "UTF-8";
+
+@font-face {
+  font-family: "Bandit";
+  src: url("../fonts/BanditEduVF.otf") format("truetype");
+}
+
+::selection {
+  color: rgb(0, 0, 0);
+  background: rgb(255, 255, 255);
+}
+
+body {
+  font-family: "Bandit", sans-serif;
+  background: rgb(0, 0, 0);
+  color: rgb(253, 152, 0);
+  font-size: 60px;
+  line-height: 50px;
+  overflow: hidden;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
+
+.scene {
+  width: 300px;
+  height: 300px;
+  perspective: 5000px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1.6); /* Pour centrer le cube */
+  z-index: 1;
+}
+
+.cube {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transform: rotateX(-15deg) rotateY(-145deg);
+}
+
+#titles-container {
+  justify-content: center;
+  text-align: center;
+  margin-top: 2vw;
+  top: 10%;
+  left: 50%;
+  color: rgb(255, 230, 0);
+  font-size: 15vw;
+  line-height: 0.75em;
+  display: flex;
+}
+
+.title {
+  border: none;
+  color: rgb(255, 0, 0);
+  font-weight: 550;
+  position: absolute;
+  opacity: 0;
+  transform: translateY(-100%);
+  transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+}
+
+.title.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.title.exit {
+  opacity: 0;
+  transform: translateY(100%);
+}
+
+#toggle-lyrics-btn {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: rgb(255, 255, 255);
+  border: none;
+  padding: 10px 20px;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 10;
+}
+
+#lyrics-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  font-size: 20px;
+  display: none;
+  z-index: 9;
+}
+
+#illtitle {
+  top: 40%;
+  font-size: 40vw;
+  align-items: center;
+}
+
+.hidden {
+  display: none;
+}
+
+/* ... votre CSS existant ... */
+
+@media only screen and (max-width: 600px) {
+  body {
+    background: rgb(0, 0, 0);
+    overflow: hidden;
+  }
+
+  .scene {
+    width: 300px;
+    height: 300px;
+    perspective: 5000px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8); /* Pour centrer le cube */
+    z-index: 1;
+  }
+
+  #titles-container {
+    justify-content: center;
+    text-align: center;
+    margin-top: 0.2em;
+    top: 10%;
+    left: 50%;
+    color: rgb(255, 230, 0);
+    font-size: 2em;
+    line-height: 0.75em;
+    display: flex;
+  }
+}
+
+/*
+-FLOOR-----------------------------------------------------------
+*/
+.floors {
+  position: absolute;
+  border: 0px solid rgb(255, 255, 255);
+  width: 300px;
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.9;
+  transform: rotateX(90deg) translateZ(-150px);
+  overflow: hidden;
+}
+
+.floor {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  transform: rotateX(90deg) translateZ(-150px);
+  transition: transform 0.5s ease;
+  background-size: 100% 100%;
+}
+
+.floor1 {
+  background-image: url("../images/diorama/track1/floor.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+.floor2 {
+  background-image: url("../images/diorama/track2/floor.jpg"); /* Remplacez par le chemin de votre image de sol */
+}
+
+.floor3 {
+  background-image: url("../images/diorama/track3/floor.jpg"); /* Remplacez par le chemin de votre image de sol */
+}
+
+.floor5 {
+  background-image: url("../images/diorama/track5/floor.jpg"); /* Remplacez par le chemin de votre image de sol */
+}
+
+.floor6 {
+  background-image: url("../images/diorama/track6/floor.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+.floor7 {
+  background-image: url("../images/diorama/track7/floor.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+.floor8 {
+  background-image: url("../images/diorama/track8/floor.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+.floor9 {
+  background-image: url("../images/diorama/track9/floor.jpg"); /* Remplacez par le chemin de votre image de sol */
+}
+
+/*
+-WALL-LEFT-----------------------------------------------------------
+*/
+.walls-left {
+  position: absolute;
+  border: 0px solid rgb(255, 255, 255);
+  width: 300px;
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.9;
+  transform: rotateY(180deg) translateZ(-150px);
+  overflow: hidden;
+}
+
+.wall-left {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  transform: rotateY(-90deg) translateZ(-150px);
+  transition: transform 0.5s ease 0.1s;
+  background-size: 100% 100%;
+}
+
+.wall-left1 {
+  background-image: url("../images/diorama/track1/wall-left.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+.wall-left2 {
+  background-image: url("../images/diorama/track2/wall-left.jpg"); /* Remplacez par le chemin de votre image de sol */
+}
+
+.wall-left4 {
+  background-image: url("../images/diorama/track4/wall-left.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+.wall-left6 {
+  background-image: url("../images/diorama/track6/wall-left.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+.wall-left7 {
+  background-image: url("../images/diorama/track7/wall-left.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+/*
+-WALL-RIGHT-----------------------------------------------------------
+*/
+.walls-right {
+  position: absolute;
+  border: 0px solid rgb(255, 255, 255);
+  width: 300px;
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.9;
+  transform: rotateY(90deg) translateZ(-150px);
+  overflow: hidden;
+}
+
+.wall-right {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  transform: rotateY(90deg) translateZ(-150px);
+  transition: transform 0.5s ease;
+  background-size: 100% 100%;
+}
+
+.wall-right1 {
+  background-image: url("../images/diorama/track1/wall-right.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+.wall-right2 {
+  background-image: url("../images/diorama/track2/wall-right.jpg"); /* Remplacez par le chemin de votre image de sol */
+}
+
+.wall-right3 {
+  background-image: url("../images/diorama/track3/wall-right.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+.wall-right4 {
+  background-image: url("../images/diorama/track4/wall-right.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+.wall-right5 {
+  background-image: url("../images/diorama/track5/wall-right.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+.wall-right6 {
+  background-image: url("../images/diorama/track6/wall-right.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+.wall-right7 {
+  background-image: url("../images/diorama/track7/wall-right.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+.wall-right8 {
+  background-image: url("../images/diorama/track8/wall-right.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+.wall-right9 {
+  background-image: url("../images/diorama/track9/wall-right.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+.wall-right10 {
+  background-image: url("../images/diorama/track10/wall-right.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+/*
+-Midwall-LEFT----------------------------------------------------------
+*/
+.midwalls-left {
+  position: absolute;
+  border: 0px solid rgb(255, 255, 255);
+  width: 300px;
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.9;
+  transform: rotateY(180deg) translateZ(-30px);
+  overflow: hidden;
+}
+
+.midwall-left {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  transform: rotateY(90deg) translateZ(150px);
+  transition: transform 0.5s ease 0.3s;
+  background-size: 100% 100%;
+}
+
+.midwall-left1 {
+  background-image: url("../images/diorama/track1/metro.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+.midwall-left4 {
+  background-image: url("../images/diorama/track4/wall2.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+.midwall-left6 {
+  background-image: url("../images/diorama/track6/banc.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+.midwall-left7 {
+  background-image: url("../images/diorama/track7/nas.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+.midwall-left8 {
+  background-image: url("../images/diorama/track8/camera.png"); /* Remplacez par le chemin de votre image de sol */
+}
+/*
+-Midwall-RIGHT----------------------------------------------------------
+*/
+.midwalls-right {
+  position: absolute;
+  border: 0px solid rgb(255, 255, 255);
+  width: 300px;
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.9;
+  transform: rotateY(90deg) translateZ(0px);
+  overflow: hidden;
+}
+
+.midwall-right {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  transform: rotateY(90deg) translateZ(150px);
+  transition: transform 0.5s ease 0.1s;
+  background-size: 100% 100%;
+}
+
+.midwall-right3 {
+  background-image: url("../images/diorama/track3/midwall.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+.midwall-right4 {
+  background-image: url("../images/diorama/track4/wall1.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+.midwall-right5 {
+  background-image: url("../images/diorama/track5/pied.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+.midwall-right9 {
+  background-image: url("../images/diorama/track9/midwall.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+.midwall-right10 {
+  background-image: url("../images/diorama/track10/people1.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+/*
+-TALUS-----------------------------------------------------------
+*/
+.talus {
+  position: absolute;
+  border: 0px solid rgb(255, 255, 255);
+  width: 300px;
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.9;
+  transform: rotateX(110deg) translateZ(-180px);
+  overflow: hidden;
+}
+
+.talu {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  transform: rotateY(90deg) translateZ(150px);
+  transition: transform 0.5s ease 0.1s;
+  background-size: 100% 100%;
+}
+
+.talu6 {
+  background-image: url("../images/diorama/track6/talus.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+/*
+-Trees----------------------------------------------------------
+*/
+.trees {
+  position: absolute;
+  border: 0px solid rgb(255, 255, 255);
+  width: 300px;
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.9;
+  transform: rotateY(180deg) translateZ(-180px);
+  overflow: hidden;
+}
+
+.tree {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  transform: rotateY(90deg) translateZ(150px);
+  transition: transform 0.5s ease 0.3s;
+  background-size: 100% 100%;
+}
+
+.tree6 {
+  background-image: url("../images/diorama/track6/trees.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+/*
+-DECK-----------------------------------------------------------
+*/
+.decks {
+  position: absolute;
+  border: 0px solid rgb(255, 255, 255);
+  width: 300px;
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.9;
+  transform: rotateY(0deg) translateZ(75px);
+  overflow: hidden;
+}
+
+.deck {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  transform: rotateY(90deg) translateX(150px);
+  transition: transform 0.5s ease 0.1s;
+  background-size: 100% 100%;
+}
+
+.deck5 {
+  background-image: url("../images/diorama/track5/deck.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+.deck7 {
+  background-image: url("../images/diorama/track7/deck.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+/*
+-PANIER-----------------------------------------------------------
+*/
+.paniers {
+  position: absolute;
+  border: 0px solid rgb(255, 0, 0);
+  width: 300px;
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.9;
+  transform: rotateX(90deg) translateY(-75px) translateZ(28px);
+  overflow: hidden;
+}
+
+.panier {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  transform: rotateY(90deg) translateX(150px);
+  transition: transform 0.5s ease 0.1s;
+  background-size: 100% 100%;
+}
+
+.panier5 {
+  background-image: url("../images/diorama/track5/panier.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+/*
+-FILET-----------------------------------------------------------
+*/
+.filets {
+  position: absolute;
+  border: 0px solid rgb(255, 0, 0);
+  width: 300px;
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.9;
+  transform: rotateX(0deg) translateY(20px) translateZ(50px);
+  overflow: hidden;
+}
+
+.filet {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  transform: rotateY(90deg) translateX(150px);
+  transition: transform 0.5s ease 0.1s;
+  background-size: 100% 100%;
+}
+
+.filet5 {
+  background-image: url("../images/diorama/track5/filet.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+/*
+-SYNTHE-----------------------------------------------------------
+*/
+.synthes {
+  position: absolute;
+  border: 0px solid rgb(255, 255, 255);
+  width: 300px;
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.9;
+  transform: rotateY(90deg) translateY(60px) translateZ(-20px) rotateX(60deg);
+  overflow: hidden;
+}
+
+.synthe {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  transform: rotateY(90deg) translateX(150px);
+  transition: transform 0.5s ease 0.1s;
+  background-size: 100% 100%;
+}
+
+.synthe9 {
+  background-image: url("../images/diorama/track9/synthe.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+/*
+-SYNTHE-PIED-1---------------------------------------------------------
+*/
+.synthes-pied1 {
+  position: absolute;
+  border: 0px solid rgb(255, 255, 255);
+  width: 300px;
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.9;
+  transform: rotateY(180deg) translateX(-60px) translateY(0px) translateZ(60px);
+  overflow: hidden;
+}
+
+.synthe-pied1 {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  transform: rotateY(90deg) translateX(150px);
+  transition: transform 0.5s ease 0.1s;
+  background-size: 100% 100%;
+}
+
+.synthe-pied19 {
+  background-image: url("../images/diorama/track9/pied.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+/*
+-SYNTHE-PIED-2---------------------------------------------------------
+*/
+.synthes-pied2 {
+  position: absolute;
+  border: 0px solid rgb(255, 255, 255);
+  width: 300px;
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.9;
+  transform: rotateY(180deg) translateX(-60px) translateY(0px) translateZ(-60px);
+  overflow: hidden;
+}
+
+.synthe-pied2 {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  transform: rotateY(90deg) translateX(-150px);
+  transition: transform 0.5s ease 0.1s;
+  background-size: 100% 100%;
+}
+
+.synthe-pied21 {
+  background-image: url("../images/diorama/track1/smoke.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+.synthe-pied29 {
+  background-image: url("../images/diorama/track9/pied.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+/*
+-CONCERT-----------------------------------------------------------
+*/
+.concerts {
+  position: absolute;
+  border: 0px solid rgb(255, 255, 255);
+  width: 300px;
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.9;
+  transform: rotateX(90deg) translateZ(40px) translateZ(-150px);
+  overflow: hidden;
+}
+
+.concert {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  transform: rotateY(90deg) translateZ(-150px);
+  transition: transform 0.5s ease 0.1s;
+  background-size: 100% 100%;
+}
+
+.concert7 {
+  background-image: url("../images/diorama/track7/scene.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+.concert10 {
+  background-image: url("../images/diorama/track10/scene.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+/*
+-FIRST-----------------------------------------------------------
+*/
+.firsts {
+  position: absolute;
+  border: 0px solid rgb(255, 255, 255);
+  width: 300px;
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.9;
+  transform: rotateY(180deg) translateZ(120px);
+  overflow: hidden;
+}
+
+.first {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  transform: rotateY(-90deg) translateZ(-150px);
+  transition: transform 0.5s ease 0.1s;
+  background-size: 100% 100%;
+}
+
+.first1 {
+  background-image: url("../images/diorama/track1/nas.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+/*
+-SECOND-----------------------------------------------------------
+*/
+.seconds {
+  position: absolute;
+  border: 0px solid rgb(255, 255, 255);
+  width: 300px;
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.9;
+  transform: rotateY(180deg) translateZ(90px);
+  overflow: hidden;
+}
+
+.second {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  transform: rotateY(-90deg) translateZ(-150px);
+  transition: transform 0.5s ease 0.1s;
+  background-size: 100% 100%;
+}
+
+.second1 {
+  background-image: url("../images/diorama/track1/people.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+.second3 {
+  background-image: url("../images/diorama/track3/graffer.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+/*
+-rapbattle-----------------------------------------------------------
+*/
+.rapbattles {
+  position: absolute;
+  border: 0px solid rgb(255, 255, 255);
+  width: 300px;
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.9;
+  transform: rotateY(140deg) translateZ(50px);
+  overflow: hidden;
+}
+
+.rapbattle {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  transform: rotateY(0deg) translateY(150px);
+  transition: transform 0.5s ease 0.1s;
+  background-size: 100% 100%;
+}
+
+.rapbattle2 {
+  background-image: url("../images/diorama/track2/nas.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+.rapbattle3 {
+  background-image: url("../images/diorama/track3/graffermatos.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+.rapbattle6 {
+  background-image: url("../images/diorama/track6/birds.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+/*
+-rapbattle-people----------------------------------------------------------
+*/
+.rappeoples1 {
+  position: absolute;
+  border: 0px solid rgb(255, 255, 255);
+  width: 300px;
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.9;
+  transform: rotateY(170deg) translateZ(-100px);
+  overflow: hidden;
+}
+
+.rappeople1 {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  transform: rotateY(0deg) translateY(150px);
+  transition: transform 0.5s ease 0.2s;
+  background-size: 100% 100%;
+}
+
+.rappeople12 {
+  background-image: url("../images/diorama/track2/people1.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+.rappeople17 {
+  background-image: url("../images/diorama/track7/racli.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+.rappeople18 {
+  background-image: url("../images/diorama/track8/vapor.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+/*
+-rapbattle-people----------------------------------------------------------
+*/
+.rappeoples2 {
+  position: absolute;
+  border: 0px solid rgb(255, 255, 255);
+  width: 300px;
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.9;
+  transform: rotateY(100deg) translateZ(-100px);
+  overflow: hidden;
+}
+
+.rappeople2 {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  transform: rotateY(0deg) translateY(200px);
+  transition: transform 0.5s ease 0.1s;
+  background-size: 100% 100%;
+}
+
+.rappeople22 {
+  background-image: url("../images/diorama/track2/people2.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+.rappeople82 {
+  background-image: url("../images/diorama/track8/pote.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+.rappeople92 {
+  background-image: url("../images/diorama/track9/nas.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+.rappeople102 {
+  background-image: url("../images/diorama/track10/nas.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+/*
+-INGESON-----------------------------------------------------------
+*/
+.ingesons {
+  position: absolute;
+  border: 0px solid rgb(255, 255, 255);
+  width: 300px;
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.9;
+  transform: rotateY(90deg) translateZ(75px);
+  overflow: hidden;
+}
+
+.ingeson {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  transform: rotateY(90deg) translateZ(150px);
+  transition: transform 0.5s ease 0.2s;
+  background-size: 100% 100%;
+}
+
+.ingeson9 {
+  background-image: url("../images/diorama/track9/ingeson.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+.ingeson10 {
+  background-image: url("../images/diorama/track10/people2.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+/*
+-CHAIR-----------------------------------------------------------
+*/
+.chairs {
+  position: absolute;
+  border: 0px solid rgb(255, 255, 255);
+  width: 300px;
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.9;
+  transform: rotateY(90deg) translateZ(85px);
+  overflow: hidden;
+}
+
+.chair {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  transform: rotateY(90deg) translateZ(150px);
+  transition: transform 0.5s ease 0.3s;
+  background-size: 100% 100%;
+}
+
+.chair9 {
+  background-image: url("../images/diorama/track9/chair.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+/*
+-LEFT-----------------------------------------------------------
+*/
+.lefts {
+  position: absolute;
+  border: 0px solid rgb(255, 255, 255);
+  width: 300px;
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.9;
+  transform: rotateY(90deg) translateZ(150px);
+  overflow: hidden;
+}
+
+.left {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  transform: rotateY(90deg) translateZ(150px);
+  transition: transform 0.5s ease 0.3s;
+  background-size: 100% 100%;
+}
+
+.left10 {
+  background-image: url("../images/diorama/track10/people3.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+/*
+-RIGHT-----------------------------------------------------------
+*/
+.rights {
+  position: absolute;
+  border: 0px solid rgb(255, 255, 255);
+  width: 300px;
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.9;
+  transform: rotateY(90deg) translateZ(150px);
+  overflow: hidden;
+}
+
+.right {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  transform: rotateY(90deg) translateZ(150px);
+  transition: transform 0.5s ease 0.3s;
+  background-size: 100% 100%;
+}
+
+.right10 {
+  background-image: url("../images/diorama/track10/people3.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+/*
+-LIGHTS-----------------------------------------------------------
+*/
+.lights {
+  position: absolute;
+  border: 0px solid rgb(255, 0, 0);
+  width: 300px;
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.9;
+  transform: rotateY(120deg) translateX(20px) translateZ(-50px);
+  overflow: hidden;
+}
+
+.light {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  transform: rotateY(90deg) translateZ(150px);
+  transition: transform 0.5s ease 0.3s;
+  background-size: 100% 100%;
+}
+
+.light8 {
+  background-image: url("../images/diorama/track8/car.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+.light9 {
+  background-image: url("../images/diorama/track9/micro.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+.light10 {
+  background-image: url("../images/diorama/track10/lights.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+/*
+-SKATER-----------------------------------------------------------
+*/
+.skaters {
+  position: absolute;
+  border: 0px solid rgb(255, 255, 255);
+  width: 300px;
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.9;
+  transform: rotateY(140deg) translateX(-20px) translateZ(10px);
+  overflow: hidden;
+}
+
+.skater {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  transform: rotateY(90deg) translateY(150px);
+  transition: transform 0.5s ease 0.3s;
+  background-size: 100% 100%;
+}
+
+.skater3 {
+  background-image: url("../images/diorama/track3/skater.png"); /* Remplacez par le chemin de votre image de sol */
+}
+.skater5 {
+  background-image: url("../images/diorama/track5/ball.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+.skater8 {
+  background-image: url("../images/diorama/track8/nas.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+/*
+-RIDER-----------------------------------------------------------
+*/
+.riders {
+  position: absolute;
+  border: 0 px solid rgb(255, 123, 0);
+  width: 300px;
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.9;
+  transform: rotateY(120deg) translateX(-80px) translateZ(-10px);
+  overflow: hidden;
+}
+
+.rider {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  transform: rotateY(0deg) translateY(250px);
+  transition: transform 0.5s ease 0.4s;
+  background-size: 100% 100%;
+}
+
+.rider3 {
+  background-image: url("../images/diorama/track3/rider.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+.rider5 {
+  background-image: url("../images/diorama/track5/player2.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+/*
+-STEAM-----------------------------------------------------------
+*/
+.steams {
+  position: absolute;
+  border: 0px solid rgb(0, 255, 0);
+  width: 300px;
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.9;
+  transform: rotateY(0deg) translateZ(20px);
+  overflow: hidden;
+}
+
+.steam {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  transform: rotateY(90deg) translateY(150px);
+  transition: transform 0.5s ease 0.4s;
+  background-size: 100% 100%;
+}
+
+.steam6 {
+  background-image: url("../images/diorama/track6/nas.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+.steam7 {
+  background-image: url("../images/diorama/track7/steam.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+/*
+-PLAYER-----------------------------------------------------------
+*/
+.players {
+  position: absolute;
+  border: 0 px solid rgb(255, 0, 0);
+  width: 300px;
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.9;
+  transform: rotateY(120deg) translateX(80px) translateZ(-40px);
+  overflow: hidden;
+}
+
+.player {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  transform: rotateY(0deg) translateY(250px);
+  transition: transform 0.5s ease 0.1s;
+  background-size: 100% 100%;
+}
+
+.player5 {
+  background-image: url("../images/diorama/track5/player1.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+/*
+-TABLE-PIED-----------------------------------------------------------
+*/
+.tables {
+  position: absolute;
+  border: 1 px solid rgb(255, 0, 0);
+  width: 300px;
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.9;
+  transform: rotateY(0deg) translateZ(125px);
+  overflow: hidden;
+}
+
+.table {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  transform: rotateY(0deg) translateY(250px);
+  transition: transform 0.5s ease 0.1s;
+  background-size: 100% 100%;
+}
+
+.table7 {
+  background-image: url("../images/diorama/track7/banc.png"); /* Remplacez par le chemin de votre image de sol */
+}
+
+/* --------------------------------------------------------------- */
+/* -1- */
+.is-scene-1 .floor1,
+.is-scene-1 .wall-left1,
+.is-scene-1 .wall-right1,
+.is-scene-1 .midwall-left1,
+.is-scene-1 .synthe-pied21,
+.is-scene-1 .first1,
+.is-scene-1 .second1,
+/* -2- */
+.is-scene-2 .floor2,
+.is-scene-2 .wall-left2,
+.is-scene-2 .wall-right2,
+.is-scene-2 .rapbattle2,
+.is-scene-2 .rappeople12,
+.is-scene-2 .rappeople22,
+/* -3- */
+.is-scene-3 .floor3,
+.is-scene-3 .wall-left3,
+.is-scene-3 .wall-right3,
+.is-scene-3 .midwall-right3,
+.is-scene-3 .rapbattle3,
+.is-scene-3 .second3,
+.is-scene-3 .skater3,
+.is-scene-3 .rider3,
+/* -4- */
+.is-scene-4 .floor4,
+.is-scene-4 .wall-left4,
+.is-scene-4 .wall-right4,
+.is-scene-4 .midwall-left4,
+.is-scene-4 .midwall-right4,
+/* -5- */
+.is-scene-5 .floor5,
+.is-scene-5 .wall-left5,
+.is-scene-5 .wall-right5,
+.is-scene-5 .midwall-right5,
+.is-scene-5 .deck5,
+.is-scene-5 .panier5,
+.is-scene-5 .filet5,
+.is-scene-5 .skater5,
+.is-scene-5 .rider5,
+.is-scene-5 .player5,
+/* -6- */
+.is-scene-6 .floor6,
+.is-scene-6 .wall-left6,
+.is-scene-6 .wall-right6,
+.is-scene-6 .midwall-left6,
+.is-scene-6 .talu6,
+.is-scene-6 .tree6,
+.is-scene-6 .rapbattle6,
+.is-scene-6 .steam6,
+.is-scene-7 .concert7,
+/* -7- */
+.is-scene-7 .floor7,
+.is-scene-7 .wall-left7,
+.is-scene-7 .midwall-left7,
+.is-scene-7 .deck7,
+.is-scene-7 .steam7,
+.is-scene-7 .rappeople17,
+.is-scene-7 .table7,
+
+/* -8- */
+.is-scene-8 .floor8,
+.is-scene-8 .wall-left8,
+.is-scene-8 .wall-right8,
+.is-scene-8 .light8,
+.is-scene-8 .rappeople18,
+.is-scene-8 .midwall-left8,
+.is-scene-8 .skater8,
+.is-scene-8 .rappeople82,
+/* -9- */
+.is-scene-9 .floor9,
+.is-scene-9 .wall-left9,
+.is-scene-9 .wall-right9,
+.is-scene-9 .midwall-right9,
+.is-scene-9 .synthe9,
+.is-scene-9 .synthe-pied19,
+.is-scene-9 .synthe-pied29,
+.is-scene-9 .rappeople92,
+.is-scene-9 .ingeson9,
+.is-scene-9 .chair9,
+.is-scene-9 .light9,
+/* -10- */
+.is-scene-10 .floor10,
+.is-scene-10 .wall-left10,
+.is-scene-10 .wall-right10,
+.is-scene-10 .midwall-right10,
+.is-scene-10 .concert10,
+.is-scene-10 .ingeson10,
+.is-scene-10 .left10,
+.is-scene-10 .light10,
+.is-scene-10 .rappeople102 {
+  transform: translate3d(0, 0, 0);
+}
