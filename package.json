@@ -11,8 +11,5 @@
   "devDependencies": {
     "vite": "^5.2.0",
     "vite-plugin-mkcert": "^1.17.5"
-  },
-  "dependencies": {
-    "@auaust/primitive-kit": "^0.29.1"
   }
 }
